@@ -1,8 +1,7 @@
-import { consultarFilmesNome } from "../../repository/filmeRepository.js";
+import { consultarFilmesId } from "../../repository/filmeRepository.js";
 
-export default async function consultarFilmesService(nome){
-    // Se não houver nome, envia vazio
-    nome = nome || '';
-    let registros = await consultarFilmesNome(nome);
-    return registros;
+export default async function consultarFilmesService(id) {
+  const filme = await consultarFilmesId(id);
+  if (!filme) throw new Error("Filme não encontrado");
+  return filme;
 }

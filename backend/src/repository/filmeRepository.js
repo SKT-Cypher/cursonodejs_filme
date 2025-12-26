@@ -1,116 +1,84 @@
-import con from './conection.js';
+import con from "./conection.js";
 
-export async function salvarFilme(filme){
-    let comando = `
-    INSERT INTO   tb_filme (nm_filme, ds_sinopse, vl_avaliacao, dt_lancamento, bt_disponivel)
-            VALUES (?, ?, ?, ?, ?)
-    `
-    let respota = await con.query(comando, [filme.nome, filme.sinopse, filme.avaliacao, filme.lancamento, filme.disponivel ]);
-    let info = respota[0];
-
-    let idFilme = info.insertId
-    return idFilme;
+// === SALVAR FILME ===
+export async function salvarFilme(filme) {
+  const comando = `
+    INSERT INTO tb_filme (nm_filme, ds_sinopse, vl_avaliacao, dt_lancamento, bt_disponivel, img)
+    VALUES (?, ?, ?, ?, ?, ?);
+  `;
+  const [resposta] = await con.query(comando, [
+    filme.nome,
+    filme.sinopse,
+    filme.avaliacao,
+    filme.lancamento,
+    filme.disponivel,
+    filme.imagem || null,
+  ]);
+  return resposta.insertId;
 }
 
-
-
-export async function consultarFilmesNome(nome){
-    let comando;
-    let parametros = [];
-
-    if(nome) {
-        // Busca por nome
-        comando = `
-        SELECT  id_filme      id,
-                nm_filme      nome,         
-                vl_avaliacao  avaliacao,
-                dt_lancamento lançamento,
-                bt_disponivel disponivel
-        FROM tb_filme
-        WHERE nm_filme LIKE ?
-        `;
-        parametros = ['%' + nome + '%'];
-    } else {
-        // Busca todos os filmes
-        comando = `
-        SELECT  id_filme      id,
-                nm_filme      nome,         
-                vl_avaliacao  avaliacao,
-                dt_lancamento lançamento,
-                bt_disponivel disponivel
-        FROM tb_filme
-        `;
-    }
-
-    let resposta = await con.query(comando, parametros);
-    return resposta[0];
-}
-
-export async function consultarFilmesId(id){
-    let comando = `
-    SELECT  id_filme                id,
-            nm_filme                nome,  
-            ds_sinopse              sinopse,       
-            vl_avaliacao           avaliacao,
-            dt_lancamento          lançamento,
-            bt_disponivel           disponivel,
-            img_filme               img
-    FROM    tb_filme
-    WHERE   id_filme = ?
-    `
-
-    let respota = await con.query(comando, [id]);
-    let registros = respota[0];
-
-    return registros;
-}
-
-
-export default async function alterarFilme(filme, id){
-    let comando = `
+// === ALTERAR FILME ===
+export async function alterarFilme(filme, id) {
+  const comando = `
     UPDATE tb_filme
-        SET nm_filme = ?,
-            ds_sinopse = ?,
-            vl_avaliacao = ?,
-            dt_lancamento = ?,
-            bt_disponivel = ?
-        WHERE id_filme = ?;
-    `
-     let resposta = await con.query(comando, [
-        filme.nome,
-        filme.sinopse, 
-        filme.avaliacao,
-        filme.lancamento, 
-        filme.disponivel,
-        id]);
-
-        let info = resposta[0];
-        let linhasAfetadas = info.affectedRows
-        return linhasAfetadas;
-
+    SET nm_filme = ?, ds_sinopse = ?, vl_avaliacao = ?, dt_lancamento = ?, bt_disponivel = ?
+    WHERE id_filme = ?;
+  `;
+  const [resposta] = await con.query(comando, [
+    filme.nome,
+    filme.sinopse,
+    filme.avaliacao,
+    filme.lancamento,
+    filme.disponivel,
+    id,
+  ]);
+  return resposta.affectedRows;
 }
 
-export  async function deletarFilme(id){
-    let comando = `
-    DELETE FROM tb_filme WHERE id_filme = ?
-    `
-
-    let resposta = await con.query(comando,[id]);
-    let info = resposta[0];
-    let linhasAfetadas = info.affectedRows;
-    return linhasAfetadas;
-}
-
+// === ALTERAR CAPA FILME ===
 export async function alterarCapaFilme(id, caminho) {
-    let comando = `
-        UPDATE tb_filme
-        SET img_filme = ?
-        WHERE id_filme = ?;
-    `;
+  const comando = `
+    UPDATE tb_filme
+    SET img = ?
+    WHERE id_filme = ?;
+  `;
+  const [resposta] = await con.query(comando, [caminho, id]);
+  return resposta.affectedRows;
+}
 
-    let resposta = await con.query(comando, [caminho, id]);
+// === CONSULTAR FILME POR ID ===
+export async function consultarFilmePorId(id) {
+  const comando = `
+    SELECT id_filme AS id, nm_filme AS nome, ds_sinopse AS sinopse,
+           vl_avaliacao AS avaliacao, dt_lancamento AS lancamento,
+           bt_disponivel AS disponivel, img AS imagem
+    FROM tb_filme
+    WHERE id_filme = ?;
+  `;
+  const [resposta] = await con.query(comando, [id]);
+  return resposta[0] || null;
+}
 
-    let info = resposta[0];
-    let linhasAfetadas = info.affectedRows;
-    return linhasAfetadas;
+// === CONSULTAR TODOS OS FILMES (opcional filtro por nome) ===
+export async function consultarFilmes(nome) {
+  let comando = `
+    SELECT id_filme AS id, nm_filme AS nome, ds_sinopse AS sinopse,
+           vl_avaliacao AS avaliacao, dt_lancamento AS lancamento,
+           bt_disponivel AS disponivel, img AS imagem
+    FROM tb_filme
+  `;
+  const params = [];
+  if (nome) {
+    comando += " WHERE nm_filme LIKE ?";
+    params.push(`%${nome}%`);
+  }
+  const [resposta] = await con.query(comando, params);
+  return resposta;
+}
+
+// === DELETAR FILME ===
+export async function deletarFilme(id) {
+  const comando = `DELETE FROM tb_filme WHERE id_filme = ?`;
+  const [resposta] = await con.query(comando, [id]);
+  return resposta.affectedRows;
 }

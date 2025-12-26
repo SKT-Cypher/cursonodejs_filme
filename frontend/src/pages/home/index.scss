@@ -1,0 +1,69 @@
+.Home-page{
+
+  .banner {
+    position: relative;   /* importante pra posicionar o texto */
+    width: 100%;
+    height: 94vh;
+    overflow: hidden;
+  }
+  
+  .imagem-banner {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;       /* mantém proporção sem distorcer */
+    filter: brightness(50%); /* deixa a imagem mais escura */
+  }
+  
+  .texto-banner {
+    position: absolute;
+    top: 50%;    /* centraliza vertical */
+    left: 50%;   /* centraliza horizontal */
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    font-size: 30px;
+  }
+
+  .filmes-carrossel{
+    background-color: black;
+    display: flex;
+    padding: 5%;
+  }
+  
+  .info {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 2rem;
+    text-align: center;
+    background: #111;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: orange; // destaque no título
+    }
+  
+    p {
+      font-size: 1.5rem;
+      line-height: 1.6;
+      color: #ccc;
+    }
+  
+    @media (max-width: 600px) {
+      padding: 1.5rem;
+  
+      h1 {
+        font-size: 1.5rem;
+      }
+  
+      p {
+        font-size: 0.95rem;
+      }
+    }
+  }
+  
+  
+}

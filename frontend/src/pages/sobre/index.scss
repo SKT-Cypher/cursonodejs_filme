@@ -1,0 +1,139 @@
+.sobre-nos {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+  
+    .banner {
+      background-color: #000; // preto
+      color: #ff6700; // laranja
+      text-align: center;
+      padding: 6rem 2rem;
+  
+      h1 {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+      }
+  
+      p {
+        font-size: 1.3rem;
+        max-width: 600px;
+        margin: 0 auto;
+        color: #fff3e0; // laranja claro para contraste
+      }
+    }
+  
+    .historia {
+      text-align: center;
+      padding: 5rem 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+  
+      h2 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: #ff6700;
+      }
+  
+      p {
+        font-size: 1.2rem;
+        color: #222; // preto escuro
+        line-height: 1.8;
+      }
+    }
+  
+    .mvv {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      padding: 5rem 2rem;
+      background-color: #111; // preto escuro
+  
+      .card {
+        background: #1a1a1a; // quase preto
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        text-align: center;
+        flex: 1 1 250px;
+        transition: all 0.3s ease;
+  
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 8px 20px rgba(255,103,0,0.4); // sombra laranja
+        }
+  
+        h3 {
+          color: #ff6700;
+          margin-bottom: 1rem;
+          font-size: 1.5rem;
+        }
+  
+        p {
+          color: #ddd; // texto claro
+          font-size: 1rem;
+        }
+      }
+    }
+  
+    .equipe {
+      text-align: center;
+      padding: 5rem 2rem;
+      background-color: #000; // preto
+  
+      h2 {
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
+        color: #ff6700;
+      }
+  
+      p {
+        font-size: 1.2rem;
+        color: #ddd;
+        margin-bottom: 3rem;
+      }
+  
+      .cards-equipe {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+  
+        .membro {
+          background: #1a1a1a;
+          padding: 2rem;
+          border-radius: 12px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+          text-align: center;
+          width: 250px;
+          transition: all 0.3s ease;
+  
+          &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(255,103,0,0.4);
+          }
+  
+          img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 2px solid #ff6700;
+          }
+  
+          h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #ff6700;
+          }
+  
+          p {
+            color: #ddd;
+          }
+        }
+      }
+    }
+  
+ 
+  }
+  

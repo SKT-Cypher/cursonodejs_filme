@@ -1,0 +1,138 @@
+.container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #111; // fundo preto elegante
+  color: #f4f4f4;
+
+  .main {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    .form-container {
+      background: #1a1a1a; // fundo levemente mais claro para contraste
+      width: 100%;
+      max-width: 700px;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+      padding: 40px;
+      border: 1px solid #ff7b00; // contorno laranja
+
+      h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #ff7b00;
+        font-size: 26px;
+        font-weight: 600;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .form-group {
+          display: flex;
+          flex-direction: column;
+
+          label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 15px;
+            color: #ff7b00;
+          }
+
+          input,
+          textarea,
+          select {
+            padding: 10px 12px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            font-size: 15px;
+            background-color: #222;
+            color: #fff;
+            transition: 0.2s ease;
+
+            &:focus {
+              border-color: #ff7b00;
+              outline: none;
+              box-shadow: 0 0 0 2px rgba(255, 123, 0, 0.2);
+            }
+          }
+
+          textarea {
+            resize: vertical;
+            min-height: 100px;
+          }
+
+          input[type="file"] {
+            border: none;
+            padding: 0;
+            color: #ff7b00;
+          }
+
+          img {
+            display: block;
+            margin-top: 10px;
+            border-radius: 10px;
+            max-width: 180px;
+            border: 2px solid #ff7b00;
+          }
+        }
+
+        .checkbox {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: #ff7b00;
+
+          input[type="checkbox"] {
+            transform: scale(1.2);
+            cursor: pointer;
+            accent-color: #ff7b00;
+          }
+        }
+
+        .btn-salvar {
+          background: linear-gradient(90deg, #ff7b00, #ff4500);
+          color: #fff;
+          border: none;
+          border-radius: 10px;
+          padding: 12px;
+          font-size: 16px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          margin-top: 10px;
+
+          &:hover {
+            background: linear-gradient(90deg, #ff8c1a, #ff5e00);
+            transform: scale(1.02);
+          }
+
+          &:active {
+            transform: scale(0.98);
+          }
+        }
+      }
+    }
+  }
+}
+
+/* 🔹 Responsividade */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+
+    .main {
+      padding: 20px;
+
+      .form-container {
+        padding: 25px;
+        width: 100%;
+      }
+    }
+  }
+}
