@@ -1,75 +1,228 @@
 .pagina-detalhes-filme {
+
   display: flex;
+
   min-height: 100vh;
-  background-color: #ececec;
-  color: #fff;
+
+  background: #f4f4f4;
+
   font-family: "Poppins", sans-serif;
-
-  .conteudo {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px;
-
-    h1 {
-      color: #ff7b00;
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin-bottom: 30px;
-      text-align: center;
-      text-shadow: 0 2px 6px rgba(255, 123, 0, 0.5);
-    }
-
-    .detalhes-container {
-      display: flex;
-      flex-direction: row;
-      gap: 30px;
-      background-color: #1e1e1e;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(255, 123, 0, 0.25);
-      max-width: 900px;
-      width: 100%;
-
-      img {
-        width: 300px;
-        height: auto;
-        border-radius: 12px;
-        object-fit: cover;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-      }
-
-      .infos {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        flex: 1;
-       
-        strong{
-          color: #ff7b00;
-        }
-        p {
-          font-size: 1.05rem;
-          line-height: 1.5;
-        }
-      }
-    }
-  }
 }
 
-/* Responsivo */
-@media (max-width: 768px) {
-  .pagina-detalhes-filme .conteudo .detalhes-container {
+
+
+/* CONTEÚDO */
+
+.conteudo {
+
+  flex: 1;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  padding: 30px;
+}
+
+
+
+/* CARD */
+
+.filme-card {
+
+  display: flex;
+
+  gap: 30px;
+
+  width: 100%;
+
+  max-width: 900px;
+
+  background: #111;
+
+  border-radius: 24px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.18);
+
+  border: 1px solid #222;
+  margin-left: 210px;
+}
+
+
+
+/* CAPA */
+
+.capa-container {
+
+  width: 280px;
+
+  height: 420px;
+
+  flex-shrink: 0;
+}
+
+.capa-container img {
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+}
+
+
+
+/* INFOS */
+
+.infos {
+
+  flex: 1;
+
+  padding: 35px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+}
+
+
+
+.infos h1 {
+
+  font-size: 38px;
+
+  color: #ff7b00;
+
+  margin-bottom: 20px;
+
+  line-height: 1.1;
+
+  word-break: break-word;
+}
+
+
+
+/* BADGES */
+
+.badges {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin-bottom: 25px;
+}
+
+.badge {
+
+  padding: 8px 14px;
+
+  border-radius: 999px;
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+.nota {
+
+  background: rgba(255,123,0,0.12);
+
+  color: #ff7b00;
+}
+
+.data {
+
+  background: rgba(255,255,255,0.08);
+
+  color: white;
+}
+
+.disponivel {
+
+  background: rgba(46,204,113,0.15);
+
+  color: #2ecc71;
+}
+
+.indisponivel {
+
+  background: rgba(231,76,60,0.15);
+
+  color: #e74c3c;
+}
+
+
+
+/* SINOPSE */
+
+.sinopse-box {
+
+  background: #1d1d1d;
+
+  padding: 22px;
+
+  border-radius: 18px;
+
+  border: 1px solid #2b2b2b;
+}
+
+.sinopse-box h3 {
+
+  color: #ff7b00;
+
+  margin-bottom: 12px;
+
+  font-size: 22px;
+}
+
+.sinopse-box p {
+
+  color: #d5d5d5;
+
+  line-height: 1.8;
+
+  font-size: 15px;
+}
+
+
+
+/* RESPONSIVO */
+
+@media (max-width: 900px) {
+
+  .filme-card {
+
     flex-direction: column;
-    align-items: center;
 
-    img {
-      width: 80%;
-    }
+    max-width: 500px;
+  }
 
-    .infos {
-      width: 100%;
-    }
+  .capa-container {
+
+    width: 100%;
+
+    height: 380px;
+  }
+
+  .infos {
+
+    padding: 25px;
+  }
+
+  .infos h1 {
+
+    font-size: 30px;
   }
 }

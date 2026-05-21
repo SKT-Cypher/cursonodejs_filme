@@ -6,17 +6,17 @@ import Header from "../../components/Header";
 const equipe = [
   {
     nome: "Guilherme Vidal",
-    cargo: "Fundador & CEO",
+    cargo: "Fundador",
     foto: "/assets/images/sasuke.gif",
   },
   {
-    nome: "Babi Souza",
-    cargo: "Marketing",
+    nome: "Guilherme Vidal",
+    cargo: "Desenvolvedor Back-End",
     foto: "/assets/images/sasuke.gif",
     
   },
   {
-    nome: "Lucas Ferreira",
+    nome: "Guilherme Vidal",
     cargo: "Desenvolvedor Front-End",
     foto: "/assets/images/sasuke.gif",
     
@@ -35,10 +35,10 @@ export default function SobreNos(){
 
       {/* Nossa História */}
       <section className="historia">
-        <h2>Nossa História</h2>
+        <h2>Minha História</h2>
         <p>
-          Fundada em 2023, nossa empresa nasceu com o objetivo de transformar ideias em soluções digitais eficientes. 
-          Cada projeto é tratado com dedicação, inovação e paixão.
+          Informatica sempre foi minha paixão, seja programação ou redes a tecnologia muda e facilita a vida das pessoas
+          me esforcei e dediquei para me profissionalizar nessa área que gosto tanto
         </p>
       </section>
 
@@ -60,8 +60,8 @@ export default function SobreNos(){
 
       {/* Equipe */}
       <section className="equipe">
-        <h2>Nossa Equipe</h2>
-        <p>Pessoas talentosas e apaixonadas que fazem tudo acontecer.</p>
+        <h2>Minha Equipe</h2>
+        <p>Talento e diciplina.</p>
         <div className="cards-equipe">
           {equipe.map((membro) => (
             <div key={membro.nome} className="membro">

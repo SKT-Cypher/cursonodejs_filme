@@ -1,7 +1,7 @@
-import { consultarFilmesId } from "../../repository/filmeRepository.js";
+import { consultarFilmes } from "../../repository/filmeRepository.js";
 
-export default async function consultarFilmesService(id) {
-  const filme = await consultarFilmesId(id);
-  if (!filme) throw new Error("Filme não encontrado");
-  return filme;
+export default async function consultarFilmesService(nome) {
+  const registros = await consultarFilmes(nome);
+
+  return registros;
 }

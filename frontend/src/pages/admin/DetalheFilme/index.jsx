@@ -5,67 +5,173 @@ import axios from "axios";
 import "./index.scss";
 
 export default function DetalhesFilme() {
-  const { id } = useParams(); // pega o ID da URL
+
+  const { id } = useParams();
+
   const navigate = useNavigate();
+
   const [filme, setFilme] = useState(null);
+
   const [carregando, setCarregando] = useState(true);
 
-  const IMAGEM_DEFAULT = "https://via.placeholder.com/300x450?text=Sem+Imagem";
+  const IMAGEM_DEFAULT =
+    "https://via.placeholder.com/300x450?text=Sem+Imagem";
 
-  // 🔹 Chama a API para buscar o filme por ID
+
+  // =========================
+  // BUSCAR FILME
+  // =========================
+
   useEffect(() => {
+
     async function buscarFilmePorId() {
+
       try {
-        const response = await axios.get(`http://localhost:5001/filme/${id}`);
+
+        const response = await axios.get(
+          `http://localhost:5000/filme/${id}`
+        );
+
+        console.log(response.data);
+
         setFilme(response.data);
-      } catch (err) {
-        console.error("Erro ao buscar filme:", err);
+
+      }
+
+      catch (err) {
+
+        console.error(
+          "Erro ao buscar filme:",
+          err
+        );
+
         alert("Filme não encontrado.");
+
         navigate("/consultar");
-      } finally {
+      }
+
+      finally {
+
         setCarregando(false);
       }
     }
 
     buscarFilmePorId();
+
   }, [id, navigate]);
 
-  if (carregando) return <p>Carregando...</p>;
-  if (!filme) return <p>Filme não encontrado.</p>;
 
-  const dataLancamento = filme.lançamento
-    ? new Date(filme.lançamento).toLocaleDateString("pt-BR")
-    : "N/A";
+  // =========================
+  // LOADING
+  // =========================
 
-  // 🔹 Ajusta a URL da imagem para substituir backslashes por barras
-  const urlImagem = filme.img
-    ? `http://localhost:5001/${filme.img.replaceAll("\\", "/")}`
-    : IMAGEM_DEFAULT;
+  if (carregando)
+    return <p>Carregando...</p>;
+
+  if (!filme)
+    return <p>Filme não encontrado.</p>;
+
+
+  // =========================
+  // DATA FORMATADA
+  // =========================
+
+  const dataLancamento =
+    filme.lancamento
+      ? new Date(
+          filme.lancamento
+        ).toLocaleDateString("pt-BR")
+      : "N/A";
+
+
+  // =========================
+  // URL IMAGEM
+  // =========================
+
+  const urlImagem =
+    filme.imagem
+
+      ? `http://localhost:5000/storage/capa/${filme.imagem}`
+
+      : IMAGEM_DEFAULT;
+
 
   return (
-    <div className="pagina-detalhes-filme">
-      <Sidebar />
-      <main className="conteudo">
-        <h1>{filme.nome || "Título não disponível"}</h1>
-        <div className="detalhes-container">
-          <img src={urlImagem} alt={filme.nome} />
-          <div className="infos">
-            <p>
-              <strong>Sinopse:</strong> {filme.sinopse || "Sinopse não disponível"}
-            </p>
-            <p>
-              <strong>Avaliação:</strong>{" "}
-              {filme.avaliacao !== undefined ? `${filme.avaliacao}/10` : "N/A"}
-            </p>
-            <p>
-              <strong>Lançamento:</strong> {dataLancamento}
-            </p>
-            <p>
-              <strong>Disponível:</strong> {filme.disponivel ? "Sim" : "Não"}
-            </p>
-          </div>
+
+  <div className="pagina-detalhes-filme">
+
+    <Sidebar />
+
+    <main className="conteudo">
+
+      <div className="filme-card">
+
+        <div className="capa-container">
+
+          <img
+            src={urlImagem}
+            alt={filme.nome}
+          />
+
         </div>
-      </main>
-    </div>
-  );
+
+
+        <div className="infos">
+
+          <h1>
+            {filme.nome ||
+              "Título não disponível"}
+          </h1>
+
+
+          <div className="badges">
+
+            <span className="badge nota">
+              ⭐ {filme.avaliacao || "N/A"}/10
+            </span>
+
+            <span className="badge data">
+              📅 {dataLancamento}
+            </span>
+
+            <span
+              className={
+                filme.disponivel
+                  ? "badge disponivel"
+                  : "badge indisponivel"
+              }
+            >
+
+              {filme.disponivel
+                ? "Disponível"
+                : "Indisponível"}
+
+            </span>
+
+          </div>
+
+
+          <div className="sinopse-box">
+
+            <h3>
+              Sinopse
+            </h3>
+
+            <p>
+
+              {filme.sinopse ||
+                "Sinopse não disponível"}
+
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+);
 }

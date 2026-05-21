@@ -1,123 +1,401 @@
 .container {
-    display: flex;
-  }
-  
-  .main {
-    margin-left: 220px;
-    width: 100%;
-    background: #f3f3f3;
-    min-height: 100vh;
-    padding-top: 60px;
+  display: flex;
+}
+
+.main {
+
+  margin-left: 220px;
+
+  width: 100%;
+
+  background: #f3f3f3;
+
+  min-height: 100vh;
+
+  padding-top: 60px;
+}
+
+
+/* PESQUISA */
+
+.form-pesquisa {
+
+  display: flex !important;
+
+  flex-direction: row !important;
+
+  align-items: center !important;
+
+  justify-content: flex-start;
+
+  gap: 0 !important;
+
+  margin-bottom: 25px;
+
+  width: fit-content;
+}
+
+.form-pesquisa input {
+
+  width: 320px;
+
+  height: 48px;
+
+  padding: 0 15px;
+
+  border: none;
+
+  outline: none;
+
+  background: #f5f5f5;
+
+  border-radius: 12px 0 0 12px;
+
+  font-size: 16px;
+
+  margin: 0;
+}
+
+.form-pesquisa button {
+
+  width: 55px;
+
+  height: 48px;
+
+  border: none;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+
+  border-radius: 0 12px 12px 0;
+
+  background: #f97316;
+
+  color: white;
+
+  display: flex !important;
+
+  align-items: center;
+
+  justify-content: center;
+
+  cursor: pointer;
+
+  flex-shrink: 0;
+
+  transition: 0.3s;
+}
+
+.form-pesquisa button:hover {
+
+  background: #ea580c;
+}
+
+
+/* TABELA */
+
+.table-container {
+
+  background: white;
+
+  padding: 40px;
+
+  border-radius: 18px;
+
+  margin: 0 auto;
+
+  width: 90%;
+
+  box-shadow:
+    0 6px 15px rgba(0,0,0,0.15);
+}
+
+.table-container h2 {
+
+  text-align: center;
+
+  margin-bottom: 30px;
+
+  font-size: 30px;
+
+  color: #111;
+}
+
+.table-container table {
+
+  width: 100%;
+
+  border-collapse: collapse;
+
+  font-size: 16px;
+}
+
+.table-container th,
+.table-container td {
+
+  padding: 16px;
+
+  text-align: left;
+
+  border-bottom: 1px solid #e5e5e5;
+
+  color: black;
+}
+
+.table-container th {
+
+  background: #f97316;
+
+  color: white;
+}
+
+.table-container tr {
+
+  transition: 0.2s;
+}
+
+.table-container tr:hover {
+
+  background: #f5f5f5;
+}
+
+
+/* AÇÕES */
+
+.acoes {
+
+  display: flex;
+
+  gap: 10px;
+}
+
+.acoes button {
+
+  border: none;
+
+  background: none;
+
+  cursor: pointer;
+
+  font-size: 18px;
+
+  transition: 0.2s;
+}
+
+.editar {
+
+  color: #007bff;
+}
+
+.deletar {
+
+  color: #e53935;
+}
+
+.editar:hover {
+
+  color: #0056b3;
+
+  transform: scale(1.1);
+}
+
+.deletar:hover {
+
+  color: #c62828;
+
+  transform: scale(1.1);
+}
+
+
+/* MODAL */
+
+.modal-overlay {
+
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(0,0,0,0.75);
+
+  backdrop-filter: blur(4px);
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999;
+
+  animation: fadeIn 0.2s ease;
+}
+
+
+.modal {
+
+  width: 100%;
+  max-width: 420px;
+
+  background: #181818;
+
+  border: 1px solid #2b2b2b;
+
+  border-radius: 22px;
+
+  padding: 35px 30px;
+
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.5),
+    0 0 20px rgba(249,115,22,0.1);
+
+  text-align: center;
+
+  animation: modalShow 0.25s ease;
+}
+
+
+.modal-icon {
+
+  width: 75px;
+  height: 75px;
+
+  margin: 0 auto 20px;
+
+  border-radius: 50%;
+
+  background: rgba(229,57,53,0.12);
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  font-size: 34px;
+
+  color: #e53935;
+}
+
+
+.modal h3 {
+
+  color: white;
+
+  font-size: 28px;
+
+  margin-bottom: 12px;
+}
+
+.modal p {
+
+  color: #b5b5b5;
+
+  font-size: 16px;
+
+  line-height: 1.5;
+
+  margin-bottom: 30px;
+}
+
+
+.modal-buttons {
+
+  display: flex;
+
+  gap: 14px;
+}
+
+.modal-buttons button {
+
+  flex: 1;
+
+  height: 50px;
+
+  border: none;
+
+  border-radius: 14px;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.25s;
+}
+
+
+/* CANCELAR */
+
+.cancelar {
+
+  background: #2b2b2b;
+
+  color: white;
+}
+
+.cancelar:hover {
+
+  background: #3a3a3a;
+
+  transform: translateY(-2px);
+}
+
+
+/* DELETAR */
+
+.confirmar {
+
+  background: linear-gradient(
+    90deg,
+    #e53935,
+    #c62828
+  );
+
+  color: white;
+}
+
+.confirmar:hover {
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 20px rgba(229,57,53,0.3);
+}
+
+
+/* ANIMAÇÕES */
+
+@keyframes fadeIn {
+
+  from {
+
+    opacity: 0;
   }
 
-  .form-pesquisa {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-bottom: 20px;
-  
-    input {
-      width: 300px;
-      padding: 8px 12px;
-      border: 1px solid #ccc;
-      border-radius: 4px 0 0 4px;
-      font-size: 18px;
-      outline: none;
-      transition: border-color 0.2s;
-  
-      &:focus {
-        border-color: #f97316;
-      }
-    }
-  
-    button {
-      padding: 12px 12px;
-      border: 1px solid #f97316;
-      background-color: #f97316;
-      color: #fff;
-      border-radius: 0 4px 4px 0;
-      cursor: pointer;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.2s;
-  
-      &:hover {
-        background-color: #f97316;
-      }
-  
-      svg {
-        margin-left: 2px;
-      }
-    }
+  to {
+
+    opacity: 1;
   }
-  
-  .table-container {
-    background: white;
-    padding: 40px;
-    border-radius: 14px;
-    margin: 0 auto;
-    width: 90%;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.35);
+}
+
+
+@keyframes modalShow {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      translateY(20px)
+      scale(0.95);
   }
-  
-  .table-container h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 26px;
-    color: #111;
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
   }
-  
-  .table-container table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 16px;
-  }
-  
-  .table-container th,
-  .table-container td {
-    padding: 14px;
-    text-align: left;
-    border-bottom: 1px solid #000000;
-    color: black;
-  }
-  
-  .table-container th {
-    background: #f97316;
-    color: white;
-  }
-  
-  .table-container tr:hover {
-    background: #dadada;
-  }
-  
-  .acoes {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .acoes button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 18px;
-    transition: 0.2s;
-  }
-  
-  .editar {
-    color: #007bff;
-  }
-  
-  .deletar {
-    color: #e53935;
-  }
-  
-  .editar:hover {
-    color: #0056b3;
-  }
-  
-  .deletar:hover {
-    color: #c62828;
-  }
-  
+}
