@@ -1,0 +1,519 @@
+.container-c {
+
+  display: flex;
+
+  min-height: 100vh;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0f0f0f,
+      #1a1a1a
+    );
+
+  color: white;
+
+  font-family: "Poppins", sans-serif;
+
+
+
+  .main {
+
+    flex: 1;
+
+    margin-left: 240px;
+
+    background-color: white;
+    padding: 25px;
+  }
+
+
+
+  /* ========================= */
+  /* CONTAINER */
+  /* ========================= */
+
+  .table-container {
+
+    background: #ffffff;
+
+    border-radius: 18px;
+
+    padding: 22px;
+
+    box-shadow:
+      0 8px 25px rgba(0,0,0,0.25);
+
+    animation: fade 0.4s ease;
+  }
+
+
+
+  /* ========================= */
+  /* TOPO */
+  /* ========================= */
+
+  .topo-tabela {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+
+
+
+    h2 {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+
+      color: #ff7b00;
+
+      font-size: 1.6rem;
+
+      font-weight: 700;
+    }
+  }
+
+
+
+  /* ========================= */
+  /* PESQUISA */
+  /* ========================= */
+
+  .form-pesquisa {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+
+
+
+    input {
+
+      flex: 1;
+
+      height: 45px;
+
+      border-radius: 10px;
+
+      border:
+        1px solid #d9d9d9;
+
+      background: #f5f5f5;
+
+      color: #000;
+
+      padding: 0 15px;
+
+      font-size: 14px;
+
+      outline: none;
+
+      transition: 0.3s;
+
+
+
+      &:focus {
+
+        border:
+          1px solid #ff7b00;
+
+        box-shadow:
+          0 0 10px rgba(255,123,0,0.15);
+      }
+
+
+
+      &::placeholder {
+
+        color: #666;
+      }
+    }
+
+
+
+    button {
+
+      width: 48px;
+
+      height: 45px;
+
+      border: none;
+
+      border-radius: 10px;
+
+      background: #ff7b00;
+
+      color: white;
+
+      cursor: pointer;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      font-size: 16px;
+
+      transition: 0.3s;
+
+
+
+      &:hover {
+
+        background: #ff922e;
+      }
+    }
+  }
+
+
+
+  /* ========================= */
+  /* TABELA */
+  /* ========================= */
+
+  table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    overflow: hidden;
+
+    border-radius: 12px;
+  }
+
+
+
+  thead {
+
+    background: #ff7b00;
+
+
+
+    th {
+
+      padding: 14px;
+
+      text-align: left;
+
+      font-size: 14px;
+
+      font-weight: 600;
+
+      color: white;
+    }
+  }
+
+
+
+  tbody {
+
+    tr {
+
+      border-bottom:
+        1px solid #ececec;
+
+      transition: 0.3s;
+
+
+
+      &:hover {
+
+        background:
+          rgba(255,123,0,0.06);
+      }
+
+
+
+      td {
+
+        padding: 14px;
+
+        color: #333;
+
+        font-size: 14px;
+      }
+    }
+  }
+
+
+
+  /* ========================= */
+  /* AÇÕES */
+  /* ========================= */
+
+  .acoes {
+
+    display: flex;
+
+    gap: 10px;
+  }
+
+
+
+  .acoes button {
+
+    width: 38px;
+
+    height: 38px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 14px;
+
+    transition: 0.3s;
+  }
+
+
+
+  .editar {
+
+    background: #ff7b00;
+
+    color: white;
+
+
+
+    &:hover {
+
+      background: #ff922e;
+
+      transform: translateY(-2px);
+    }
+  }
+
+
+
+  .deletar {
+
+    background: #ff3b30;
+
+    color: white;
+
+
+
+    &:hover {
+
+      background: #ff5a52;
+
+      transform: translateY(-2px);
+    }
+  }
+
+
+
+  /* ========================= */
+  /* MODAL */
+  /* ========================= */
+
+  .modal-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+      rgba(0,0,0,0.65);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    z-index: 999;
+  }
+
+
+
+  .modal {
+
+    width: 100%;
+
+    max-width: 360px;
+
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 28px;
+
+    text-align: center;
+
+    box-shadow:
+      0 10px 30px rgba(0,0,0,0.3);
+
+    animation: fade 0.3s ease;
+
+
+
+    .modal-icon {
+
+      font-size: 48px;
+
+      margin-bottom: 12px;
+    }
+
+
+
+    h3 {
+
+      color: #ff7b00;
+
+      font-size: 1.5rem;
+
+      margin-bottom: 10px;
+    }
+
+
+
+    p {
+
+      color: #555;
+
+      line-height: 1.5;
+
+      margin-bottom: 22px;
+    }
+  }
+
+
+
+  .modal-buttons {
+
+    display: flex;
+
+    gap: 12px;
+  }
+
+
+
+  .modal-buttons button {
+
+    flex: 1;
+
+    height: 45px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+  }
+
+
+
+  .cancelar {
+
+    background: #e5e5e5;
+
+    color: #333;
+
+
+
+    &:hover {
+
+      background: #d5d5d5;
+    }
+  }
+
+
+
+  .confirmar {
+
+    background: #ff3b30;
+
+    color: white;
+
+
+
+    &:hover {
+
+      background: #ff5a52;
+    }
+  }
+
+
+
+  /* ========================= */
+  /* RESPONSIVO */
+  /* ========================= */
+
+  @media (max-width: 900px) {
+
+    .main {
+
+      margin-left: 0;
+
+      padding: 15px;
+    }
+
+
+
+    .table-container {
+
+      padding: 15px;
+
+      overflow-x: auto;
+    }
+
+
+
+    table {
+
+      min-width: 650px;
+    }
+  }
+
+
+
+  /* ========================= */
+  /* ANIMAÇÃO */
+  /* ========================= */
+
+  @keyframes fade {
+
+    from {
+
+      opacity: 0;
+
+      transform: translateY(20px);
+    }
+
+    to {
+
+      opacity: 1;
+
+      transform: translateY(0);
+    }
+  }
+}

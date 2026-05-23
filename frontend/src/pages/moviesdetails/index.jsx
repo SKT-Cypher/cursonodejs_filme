@@ -13,6 +13,14 @@ import Header from "../../components/Header";
 
 import Footer from "../../components/Footer";
 
+import {
+  FaStar,
+  FaCalendarAlt,
+  FaClock,
+  FaFilm,
+  FaArrowLeft
+} from "react-icons/fa";
+
 
 export default function MovieDetalhes() {
 
@@ -27,39 +35,37 @@ export default function MovieDetalhes() {
     useState(true);
 
 
- useEffect(() => {
+  useEffect(() => {
 
-  async function buscarFilme() {
+    async function buscarFilme() {
 
-    try {
+      try {
 
-      const response = await axios.get(
-        `http://localhost:5000/filme/${id}`
-      );
+        const response = await axios.get(
+          `http://localhost:5000/filme/${id}`
+        );
 
-      setFilme(response.data);
+        setFilme(response.data);
 
+      }
+
+      catch (erro) {
+
+        console.log(erro);
+
+        navigate("/");
+      }
+
+      finally {
+
+        setLoading(false);
+      }
     }
 
-    catch (erro) {
+    buscarFilme();
 
-      console.log(erro);
+  }, [id, navigate]);
 
-      navigate("/");
-    }
-
-    finally {
-
-      setLoading(false);
-    }
-  }
-
-  buscarFilme();
-
-}, [id, navigate]);
-
-
- 
 
   if (loading) {
 
@@ -105,14 +111,51 @@ export default function MovieDetalhes() {
       : "N/A";
 
 
+  function getClassificacaoClass() {
+
+    const cls =
+      filme.classificacao?.toLowerCase();
+
+    if (cls?.includes("livre"))
+      return "livre";
+
+    if (cls?.includes("10"))
+      return "dez";
+
+    if (cls?.includes("12"))
+      return "doze";
+
+    if (cls?.includes("14"))
+      return "quatorze";
+
+    if (cls?.includes("16"))
+      return "dezesseis";
+
+    return "dezoito";
+  }
+
+
+  function getNotaClass() {
+
+    const nota =
+      Number(filme.avaliacao);
+
+    if (nota >= 7)
+      return "nota-boa";
+
+    if (nota >= 5)
+      return "nota-media";
+
+    return "nota-ruim";
+  }
+
+
   return (
 
     <div className="movie-details-page">
 
       <Header />
 
-
-      {/* BANNER */}
 
       <section
         className="movie-banner"
@@ -128,7 +171,7 @@ export default function MovieDetalhes() {
           <div className="movie-content">
 
 
-            {/* CAPA */}
+            {/* POSTER */}
 
             <div className="movie-poster">
 
@@ -145,44 +188,151 @@ export default function MovieDetalhes() {
 
             <div className="movie-info">
 
-              <h1>
-                {filme.nome}
-              </h1>
 
+              <div className="movie-header">
 
-              <div className="movie-meta">
-
-                <span>
-                  ⭐ {filme.avaliacao}/10
-                </span>
-
-                <span>
-                  📅 {dataLancamento}
-                </span>
-
-                <span>
-
-                  {filme.disponivel
-                    ? "🟢 Disponível"
-                    : "🔴 Indisponível"}
-
-                </span>
+                <h1>{filme.nome}</h1>
 
               </div>
 
 
-              <h3>
-                Sinopse
-              </h3>
 
-              <p>
-                {filme.sinopse}
-              </p>
+              {/* CARDS */}
+
+              <div className="movie-cards">
 
 
-              <button>
+                <div className={`info-card avaliacao-card ${getNotaClass()}`}>
 
-              <a href="/movies">Voltar ao catálogo</a> 
+                  <FaStar />
+
+                  <div>
+
+                    <span>Avaliação</span>
+
+                    <strong>
+                      {filme.avaliacao}/10
+                    </strong>
+
+                  </div>
+
+                </div>
+
+
+
+                <div className="info-card">
+
+                  <FaCalendarAlt />
+
+                  <div>
+
+                    <span>Lançamento</span>
+
+                    <strong>
+                      {dataLancamento}
+                    </strong>
+
+                  </div>
+
+                </div>
+
+
+
+                <div className="info-card">
+
+                  <FaClock />
+
+                  <div>
+
+                    <span>Duração</span>
+
+                    <strong>
+                      {filme.duracao} min
+                    </strong>
+
+                  </div>
+
+                </div>
+
+
+
+                <div className="info-card">
+
+                  <FaFilm />
+
+                  <div>
+
+                    <span>Categoria</span>
+
+                    <strong>
+                      {filme.categoria}
+                    </strong>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+
+              {/* BADGES */}
+
+             <div className="movie-badges">
+
+  <span className={`classificacao ${getClassificacaoClass()}`}>
+
+    {filme.classificacao}
+
+  </span>
+
+
+  <span
+    className={
+      filme.disponivel
+        ? "status disponivel"
+        : "status indisponivel"
+    }
+  >
+
+    {
+      filme.disponivel
+        ? "🟢 Disponível Agora"
+        : "🔴 Indisponível"
+    }
+
+  </span>
+
+</div>
+
+
+
+              {/* SINOPSE */}
+
+              <div className="sinopse-box">
+
+                <h3>Sinopse</h3>
+
+                <p>
+                  {filme.sinopse}
+                </p>
+
+              </div>
+
+
+
+              {/* BOTÃO */}
+
+              <button
+                onClick={() =>
+                  navigate("/movies")
+                }
+              >
+
+                <FaArrowLeft />
+
+                Voltar ao Catálogo
+
               </button>
 
             </div>

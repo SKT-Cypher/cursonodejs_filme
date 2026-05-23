@@ -2,6 +2,10 @@ import React, { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
+import axios from "axios";
+
+import Header from "../../../components/Header";
+
 import "./index.scss";
 
 export default function LoginAdmin() {
@@ -15,13 +19,23 @@ export default function LoginAdmin() {
   const [erro, setErro] =
     useState("");
 
+  const [carregando, setCarregando] =
+    useState(false);
+
   const navigate =
     useNavigate();
 
 
-  const handleLogin = (e) => {
+  async function handleLogin(e) {
 
     e.preventDefault();
+
+    setErro("");
+
+
+    // =========================
+    // VALIDAÇÃO
+    // =========================
 
     if (!email || !senha) {
 
@@ -33,98 +47,203 @@ export default function LoginAdmin() {
     }
 
 
-    const adminEmail =
-      "admin@v";
+    try {
 
-    const adminSenha =
-      "123";
+      setCarregando(true);
 
 
-    if (
-      email === adminEmail &&
-      senha === adminSenha
-    ) {
+      // =========================
+      // LOGIN API
+      // =========================
 
-      // SALVA LOGIN
+      const response =
+        await axios.post(
+
+          "http://localhost:5000/admin/login",
+
+          {
+            email,
+            senha
+          }
+        );
+
+
+      // =========================
+      // DADOS RETORNO
+      // =========================
+
+      const dados =
+        response.data;
+
+
+      // =========================
+      // TOKEN JWT
+      // =========================
 
       localStorage.setItem(
+
+        "TOKEN",
+
+        dados.token
+      );
+
+
+      // =========================
+      // LOGIN
+      // =========================
+
+      localStorage.setItem(
+
         "admin-logado",
+
         "true"
       );
 
-      setErro("");
 
-      console.log(
-        "Login realizado com sucesso!"
+      // =========================
+      // DADOS ADMIN
+      // =========================
+
+      localStorage.setItem(
+
+        "admin-dados",
+
+        JSON.stringify(
+          dados.admin
+        )
       );
 
-      navigate("/cadastrar");
+
+      // =========================
+      // REDIRECIONA
+      // =========================
+
+      navigate("/consultar");
 
     }
 
-    else {
+    catch (err) {
+
+      console.log(err);
 
       setErro(
-        "Email ou senha incorretos."
+
+        err.response?.data?.erro ||
+
+        "Erro ao realizar login"
       );
     }
-  };
+
+    finally {
+
+      setCarregando(false);
+    }
+  }
 
 
   return (
 
     <div className="login-admin-page">
 
-      <div className="login-card">
+      <Header />
 
-        <h2>
-          Login Administrador
-        </h2>
+      <div className="login-container">
 
-
-        {erro && (
-
-          <p className="erro">
-            {erro}
-          </p>
-
-        )}
+        <div className="login-card">
 
 
-        <form onSubmit={handleLogin}>
+          {/* TOPO */}
+
+          <div className="topo">
+
+            <h1>
+              Painel Administrativo
+            </h1>
+
+          </div>
 
 
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) =>
-              setEmail(
-                e.target.value
-              )
-            }
-          />
+          {/* ERRO */}
+
+          {erro && (
+
+            <div className="erro">
+
+              {erro}
+
+            </div>
+          )}
 
 
-          <input
-            type="password"
-            placeholder="Senha"
-            value={senha}
-            onChange={(e) =>
-              setSenha(
-                e.target.value
-              )
-            }
-          />
+          {/* FORM */}
+
+          <form onSubmit={handleLogin}>
 
 
-          <button type="submit">
+            {/* EMAIL */}
 
-            Entrar
+            <div className="input-group">
 
-          </button>
+              <label>
+                Email
+              </label>
 
-        </form>
+              <input
+                type="email"
+                placeholder="Digite seu email"
+                value={email}
+                onChange={(e) =>
+                  setEmail(
+                    e.target.value
+                  )
+                }
+              />
+
+            </div>
+
+
+
+            {/* SENHA */}
+
+            <div className="input-group">
+
+              <label>
+                Senha
+              </label>
+
+              <input
+                type="password"
+                placeholder="Digite sua senha"
+                value={senha}
+                onChange={(e) =>
+                  setSenha(
+                    e.target.value
+                  )
+                }
+              />
+
+            </div>
+
+
+
+            {/* BOTÃO */}
+
+            <button
+              type="submit"
+              disabled={carregando}
+            >
+
+              {carregando
+
+                ? "Entrando..."
+
+                : "Entrar"}
+
+            </button>
+
+          </form>
+
+        </div>
 
       </div>
 

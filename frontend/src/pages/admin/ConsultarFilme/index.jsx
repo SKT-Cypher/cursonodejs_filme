@@ -7,6 +7,7 @@ import {
 } from "react-icons/fa";
 
 import axios from "axios";
+import api from "../../../api";
 
 import "./index.scss";
 
@@ -107,7 +108,7 @@ export default function ConsultarFilme() {
 
     try {
 
-      await axios.delete(
+      await api.delete(
         `${API_URL}/${filmeSelecionado}`
       );
 
@@ -181,7 +182,7 @@ export default function ConsultarFilme() {
 
   return (
 
-    <div className="container">
+    <div className="container-d">
 
       <Sidebar />
 

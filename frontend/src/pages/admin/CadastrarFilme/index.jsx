@@ -1,27 +1,58 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect
+} from "react";
+
 import Sidebar from "../../../components/SideBar";
-import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+
+import api from "../../../api";
+
+import {
+  useParams,
+  useNavigate
+} from "react-router-dom";
+
 import "./index.scss";
 
 export default function CadastrarFilme() {
 
   const { id } = useParams();
 
-  const navigate = useNavigate();
+  const navigate =
+    useNavigate();
 
-  const [titulo, setTitulo] = useState("");
-  const [sinopse, setSinopse] = useState("");
-  const [lancamento, setLancamento] = useState("");
-  const [avaliacao, setAvaliacao] = useState("");
-  const [disponivel, setDisponivel] = useState(false);
+  const [titulo, setTitulo] =
+    useState("");
 
-  const [imagem, setImagem] = useState(null);
+  const [sinopse, setSinopse] =
+    useState("");
+
+  const [lancamento, setLancamento] =
+    useState("");
+
+  const [avaliacao, setAvaliacao] =
+    useState("");
+
+  const [categoria, setCategoria] =
+    useState("");
+
+  const [duracao, setDuracao] =
+    useState("");
+
+  const [classificacao, setClassificacao] =
+    useState("");
+
+  const [disponivel, setDisponivel] =
+    useState(false);
+
+  const [imagem, setImagem] =
+    useState(null);
 
   const [imagemPreview, setImagemPreview] =
     useState(null);
 
-  const [popup, setPopup] = useState(false);
+  const [popup, setPopup] =
+    useState(false);
 
   const [mensagemPopup, setMensagemPopup] =
     useState("");
@@ -30,29 +61,38 @@ export default function CadastrarFilme() {
     "http://localhost:5000/filme";
 
 
+  // =========================
+  // CARREGAR FILME
+  // =========================
+
   useEffect(() => {
 
-  if (id) {
+    if (id) {
 
-    carregarFilme();
-  }
+      carregarFilme();
+    }
 
-}, [id]); // eslint-disable-line
+  }, [id]);
 
 
   async function carregarFilme() {
 
     try {
 
-      const resp = await axios.get(
-        `${API_URL}/${id}`
-      );
+      const resp =
+        await api.get(
+          `${API_URL}/${id}`
+        );
 
       const f = resp.data;
 
-      setTitulo(f.nome || "");
+      setTitulo(
+        f.nome || ""
+      );
 
-      setSinopse(f.sinopse || "");
+      setSinopse(
+        f.sinopse || ""
+      );
 
       setLancamento(
         f.lancamento
@@ -62,7 +102,21 @@ export default function CadastrarFilme() {
           : ""
       );
 
-      setAvaliacao(f.avaliacao || "");
+      setAvaliacao(
+        f.avaliacao || ""
+      );
+
+      setCategoria(
+        f.categoria || ""
+      );
+
+      setDuracao(
+        f.duracao || ""
+      );
+
+      setClassificacao(
+        f.classificacao || ""
+      );
 
       setDisponivel(
         f.disponivel === 1 ||
@@ -85,15 +139,23 @@ export default function CadastrarFilme() {
   }
 
 
+  // =========================
+  // SALVAR FILME
+  // =========================
+
   async function salvarFilme(e) {
 
     e.preventDefault();
 
     try {
 
-      const formData = new FormData();
+      const formData =
+        new FormData();
 
-      formData.append("nome", titulo);
+      formData.append(
+        "nome",
+        titulo
+      );
 
       formData.append(
         "sinopse",
@@ -111,6 +173,21 @@ export default function CadastrarFilme() {
       );
 
       formData.append(
+        "categoria",
+        categoria
+      );
+
+      formData.append(
+        "duracao",
+        duracao
+      );
+
+      formData.append(
+        "classificacao",
+        classificacao
+      );
+
+      formData.append(
         "disponivel",
         disponivel ? 1 : 0
       );
@@ -124,9 +201,11 @@ export default function CadastrarFilme() {
       }
 
 
+      // EDITAR
+
       if (id) {
 
-        await axios.put(
+        await api.put(
           `${API_URL}/${id}`,
           formData,
           {
@@ -144,9 +223,12 @@ export default function CadastrarFilme() {
         setPopup(true);
       }
 
+
+      // CADASTRAR
+
       else {
 
-        await axios.post(
+        await api.post(
           API_URL,
           formData,
           {
@@ -170,14 +252,17 @@ export default function CadastrarFilme() {
 
       console.log(erro);
 
-      alert("Erro ao salvar filme");
+      alert(
+        erro.response?.data?.erro ||
+        "Erro ao salvar filme"
+      );
     }
   }
 
 
   return (
 
-    <div className="container">
+    <div className="container-b">
 
       <Sidebar />
 
@@ -186,7 +271,7 @@ export default function CadastrarFilme() {
         <div className="form-container">
 
 
-          {/* LADO ESQUERDO */}
+          {/* PREVIEW */}
 
           <div className="preview-area">
 
@@ -200,20 +285,25 @@ export default function CadastrarFilme() {
             ) : (
 
               <div className="sem-imagem">
+
                 Sem Capa
+
               </div>
 
             )}
 
+
             <h1>
+
               {titulo || "Seu Filme"}
+
             </h1>
 
           </div>
 
 
 
-          {/* LADO DIREITO */}
+          {/* FORM */}
 
           <div className="form-area">
 
@@ -229,14 +319,18 @@ export default function CadastrarFilme() {
             <form onSubmit={salvarFilme}>
 
 
+              {/* TITULO */}
+
               <div className="form-group">
 
-                <label>Título</label>
+                <label>
+                  Título
+                </label>
 
                 <input
                   type="text"
-                  value={titulo}
                   maxLength={50}
+                  value={titulo}
                   onChange={(e) =>
                     setTitulo(
                       e.target.value
@@ -249,9 +343,13 @@ export default function CadastrarFilme() {
 
 
 
+              {/* SINOPSE */}
+
               <div className="form-group">
 
-                <label>Sinopse</label>
+                <label>
+                  Sinopse
+                </label>
 
                 <textarea
                   value={sinopse}
@@ -266,6 +364,8 @@ export default function CadastrarFilme() {
               </div>
 
 
+
+              {/* DATA */}
 
               <div className="form-group">
 
@@ -288,9 +388,11 @@ export default function CadastrarFilme() {
 
 
 
+              {/* LINHA 1 */}
+
               <div className="linha-dupla">
 
-                <div className="form-group avaliacao">
+                <div className="form-group">
 
                   <label>
                     Avaliação
@@ -313,21 +415,22 @@ export default function CadastrarFilme() {
                 </div>
 
 
-
-                <div className="form-group checkbox">
+                <div className="form-group">
 
                   <label>
-                    Disponível
+                    Duração
                   </label>
 
                   <input
-                    type="checkbox"
-                    checked={disponivel}
+                    type="text"
+                    placeholder="120 min"
+                    value={duracao}
                     onChange={(e) =>
-                      setDisponivel(
-                        e.target.checked
+                      setDuracao(
+                        e.target.value
                       )
                     }
+                    required
                   />
 
                 </div>
@@ -335,6 +438,131 @@ export default function CadastrarFilme() {
               </div>
 
 
+
+              {/* LINHA 2 */}
+
+              <div className="linha-dupla">
+
+                <div className="form-group">
+
+                  <label>
+                    Categoria
+                  </label>
+
+                  <select
+                    value={categoria}
+                    onChange={(e) =>
+                      setCategoria(
+                        e.target.value
+                      )
+                    }
+                    required
+                  >
+
+                    <option value="">
+                      Selecione
+                    </option>
+
+                    <option value="Ação">
+                      Ação
+                    </option>
+
+                    <option value="Terror">
+                      Terror
+                    </option>
+
+                    <option value="Drama">
+                      Drama
+                    </option>
+
+                    <option value="Comédia">
+                      Comédia
+                    </option>
+
+                    <option value="Ficção">
+                      Ficção
+                    </option>
+
+                  </select>
+
+                </div>
+
+
+                <div className="form-group">
+
+                  <label>
+                    Classificação
+                  </label>
+
+                  <select
+                    value={classificacao}
+                    onChange={(e) =>
+                      setClassificacao(
+                        e.target.value
+                      )
+                    }
+                    required
+                  >
+
+                    <option value="">
+                      Selecione
+                    </option>
+
+                    <option value="Livre">
+                      Livre
+                    </option>
+
+                    <option value="10">
+                      10 anos
+                    </option>
+
+                    <option value="12">
+                      12 anos
+                    </option>
+
+                    <option value="14">
+                      14 anos
+                    </option>
+
+                    <option value="16">
+                      16 anos
+                    </option>
+
+                    <option value="18">
+                      18 anos
+                    </option>
+
+                  </select>
+
+                </div>
+
+              </div>
+
+
+
+              {/* DISPONIVEL */}
+
+              <div className="form-group checkbox">
+
+                <label>
+                  Disponível
+                </label>
+
+                <input
+                  type="checkbox"
+                  checked={disponivel}
+                  onChange={(e) =>
+                    setDisponivel(
+                      e.target.checked
+                    )
+                  }
+                />
+
+              </div>
+
+
+
+              {/* IMAGEM */}
 
               <div className="form-group">
 
@@ -392,6 +620,8 @@ export default function CadastrarFilme() {
 
 
 
+      {/* POPUP */}
+
       {popup && (
 
         <div className="popup-overlay">
@@ -399,7 +629,9 @@ export default function CadastrarFilme() {
           <div className="popup-sucesso">
 
             <div className="icone-sucesso">
+
               ✅
+
             </div>
 
             <h2>

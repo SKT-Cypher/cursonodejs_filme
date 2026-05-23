@@ -12,9 +12,9 @@ import './index.css';
 
 import Home from './pages/home';
 import MovieDetalhes from './pages/moviesdetails';
-
+import ConsultarAdmin from './pages/admin/ConsultarAdmin';
 import Movies from './pages/movies';
-
+import CadastrarAdmin from './pages/admin/CadastrarAdmin';
 import SobreNos from './pages/sobre';
 
 import LoginAdmin from './pages/admin/adminLogin';
@@ -83,12 +83,39 @@ root.render(
           }
         />
 
+         <Route
+          path='/cadastrarAdm'
+          element={
+            <ProtectedRoute>
+              <CadastrarAdmin />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+        path='/consultarAdm'
+        element={
+          <ProtectedRoute>
+            <ConsultarAdmin/>
+          </ProtectedRoute>
+        }
+        />
+
 
         <Route
           path="/editar/:id"
           element={
             <ProtectedRoute>
               <CadastrarFilme />
+            </ProtectedRoute>
+          }
+        />
+
+         <Route
+          path="/editarAdmin/:id"
+          element={
+            <ProtectedRoute>
+              <CadastrarAdmin />
             </ProtectedRoute>
           }
         />
